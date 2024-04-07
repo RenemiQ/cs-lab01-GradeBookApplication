@@ -9,7 +9,7 @@ namespace GradeBook.GradeBooks
 {
     internal class RankedGradeBook : BaseGradeBook
     {
-        public RankedGradeBook(string name) : base(name)
+        public RankedGradeBook(string name, bool isWeighted) : base(name, isWeighted)
         {
             Type = GradeBookType.Ranked;
         }
@@ -24,15 +24,25 @@ namespace GradeBook.GradeBooks
             var grades = Students.Select(s => s.AverageGrade).OrderByDescending(g => g).ToList();
 
             if (grades.IndexOf(averageGrade) < threshold)
+            {
                 return 'A';
+            }
             else if (grades.IndexOf(averageGrade) < threshold * 2)
+            {
                 return 'B';
+            }
             else if (grades.IndexOf(averageGrade) < threshold * 3)
+            {
                 return 'C';
+            }
             else if (grades.IndexOf(averageGrade) < threshold * 4)
+            {
                 return 'D';
+            }
             else
+            {
                 return 'F';
+            }
 
 
         }
@@ -41,13 +51,26 @@ namespace GradeBook.GradeBooks
             if (Students.Count < 5)
             {
                 Console.WriteLine("Ranked grading requires at least 5 students.");
-                return;
+               
             }
             else
             {
                 base.CalculateStatistics();
             }
         }
+        public override void CalculateStudentStatistics()
+        {
+            if (Students.Count < 5)
+            {
+                Console.WriteLine("Ranked grading requires at least 5 students.");
+
+            }
+            else
+            {
+                base.CalculateStudentStatistics();
+            }
+        }
+
     }
    
 
